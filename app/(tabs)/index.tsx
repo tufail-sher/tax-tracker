@@ -1,75 +1,160 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { useAppDispatch, useAppSelector } from '@/src/store/hooks';
+import { addTaxEntry, removeTaxEntry, TaxEntry } from '@/src/store/slices/taxSlice';
+import React, { useState } from 'react';
+import { Alert, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
+  const dispatch = useAppDispatch();
+  const { entries, totalIncome, totalExpenses } = useAppSelector((state) => state.tax);
+  
+  const [description, setDescription] = useState('');
+  const [amount, setAmount] = useState('');
+  const [category, setCategory] = useState('');
+  const [type, setType] = useState<'income' | 'expense'>('expense');
+
+  const handleAddEntry = () => {
+    if (!description || !amount || !category) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    const newEntry: TaxEntry = {
+      id: Date.now().toString(),
+      description,
+      amount: parseFloat(amount),
+      category,
+      date: new Date().toISOString().split('T')[0],
+      type,
+    };
+
+    dispatch(addTaxEntry(newEntry));
+    
+    // Reset form
+    setDescription('');
+    setAmount('');
+    setCategory('');
+  };
+
+  const handleDeleteEntry = (id: string) => {
+    Alert.alert(
+      'Delete Entry',
+      'Are you sure you want to delete this entry?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', onPress: () => dispatch(removeTaxEntry(id)) },
+      ]
+    );
+  };
+
+  const renderTaxEntry = ({ item }: { item: TaxEntry }) => (
+    <View className="bg-white p-4 mb-2 rounded-lg shadow-sm border border-gray-200">
+      <View className="flex-row justify-between items-start">
+        <View className="flex-1">
+          <Text className="text-lg font-semibold text-gray-800">{item.description}</Text>
+          <Text className="text-sm text-gray-600">{item.category}</Text>
+          <Text className="text-xs text-gray-500">{item.date}</Text>
+        </View>
+        <View className="items-end">
+          <Text className={`text-lg font-bold ${item.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
+            {item.type === 'income' ? '+' : '-'}${item.amount.toFixed(2)}
+          </Text>
+          <TouchableOpacity
+            onPress={() => handleDeleteEntry(item.id)}
+            className="mt-2 bg-red-500 px-3 py-1 rounded"
+          >
+            <Text className="text-white text-xs">Delete</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <View className="flex-1 bg-gray-50">
+      {/* Header */}
+      <View className="bg-blue-600 pt-12 pb-6 px-4">
+        <Text className="text-white text-2xl font-bold mb-4">Tax Tracker</Text>
+        <View className="flex-row justify-between">
+          <View className="bg-green-500 p-3 rounded-lg flex-1 mr-2">
+            <Text className="text-white text-sm">Total Income</Text>
+            <Text className="text-white text-xl font-bold">${totalIncome.toFixed(2)}</Text>
+          </View>
+          <View className="bg-red-500 p-3 rounded-lg flex-1 ml-2">
+            <Text className="text-white text-sm">Total Expenses</Text>
+            <Text className="text-white text-xl font-bold">${totalExpenses.toFixed(2)}</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Add Entry Form */}
+      <View className="bg-white p-4 m-4 rounded-lg shadow-sm border border-gray-200">
+        <Text className="text-lg font-semibold mb-4 text-gray-800">Add New Entry</Text>
+        
+        <TextInput
+          className="border border-gray-300 rounded-lg p-3 mb-3"
+          placeholder="Description"
+          value={description}
+          onChangeText={setDescription}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        
+        <TextInput
+          className="border border-gray-300 rounded-lg p-3 mb-3"
+          placeholder="Amount"
+          value={amount}
+          onChangeText={setAmount}
+          keyboardType="numeric"
+        />
+        
+        <TextInput
+          className="border border-gray-300 rounded-lg p-3 mb-3"
+          placeholder="Category"
+          value={category}
+          onChangeText={setCategory}
+        />
+
+        <View className="flex-row mb-4">
+          <TouchableOpacity
+            onPress={() => setType('expense')}
+            className={`flex-1 p-3 rounded-lg mr-2 ${type === 'expense' ? 'bg-red-500' : 'bg-gray-200'}`}
+          >
+            <Text className={`text-center font-semibold ${type === 'expense' ? 'text-white' : 'text-gray-700'}`}>
+              Expense
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            onPress={() => setType('income')}
+            className={`flex-1 p-3 rounded-lg ml-2 ${type === 'income' ? 'bg-green-500' : 'bg-gray-200'}`}
+          >
+            <Text className={`text-center font-semibold ${type === 'income' ? 'text-white' : 'text-gray-700'}`}>
+              Income
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity
+          onPress={handleAddEntry}
+          className="bg-blue-600 p-4 rounded-lg"
+        >
+          <Text className="text-white text-center font-semibold text-lg">Add Entry</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Entries List */}
+      <View className="flex-1 px-4">
+        <Text className="text-lg font-semibold mb-3 text-gray-800">Recent Entries</Text>
+        <FlatList
+          data={entries}
+          renderItem={renderTaxEntry}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <View className="bg-white p-8 rounded-lg items-center">
+              <Text className="text-gray-500 text-center">No entries yet. Add your first tax entry above!</Text>
+            </View>
+          }
+        />
+      </View>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

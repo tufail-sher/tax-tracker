@@ -1,110 +1,128 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useAppSelector } from '@/src/store/hooks';
+import React from 'react';
+import { ScrollView, Text, View } from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+export default function ReportsScreen() {
+  const { entries, totalIncome, totalExpenses } = useAppSelector((state) => state.tax);
 
-export default function TabTwoScreen() {
+  const netIncome = totalIncome - totalExpenses;
+  const incomeEntries = entries.filter(entry => entry.type === 'income');
+  const expenseEntries = entries.filter(entry => entry.type === 'expense');
+
+  // Group expenses by category
+  const expensesByCategory = expenseEntries.reduce((acc, entry) => {
+    acc[entry.category] = (acc[entry.category] || 0) + entry.amount;
+    return acc;
+  }, {} as Record<string, number>);
+
+  // Group income by category
+  const incomeByCategory = incomeEntries.reduce((acc, entry) => {
+    acc[entry.category] = (acc[entry.category] || 0) + entry.amount;
+    return acc;
+  }, {} as Record<string, number>);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <ScrollView className="flex-1 bg-gray-50">
+      {/* Header */}
+      <View className="bg-purple-600 pt-12 pb-6 px-4">
+        <Text className="text-white text-2xl font-bold">Tax Reports</Text>
+        <Text className="text-purple-100 text-sm mt-1">Financial overview and insights</Text>
+      </View>
+
+      {/* Summary Cards */}
+      <View className="p-4 space-y-4">
+        <View className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+          <Text className="text-lg font-semibold text-gray-800 mb-3">Financial Summary</Text>
+          <View className="space-y-2">
+            <View className="flex-row justify-between">
+              <Text className="text-gray-600">Total Income:</Text>
+              <Text className="font-semibold text-green-600">${totalIncome.toFixed(2)}</Text>
+            </View>
+            <View className="flex-row justify-between">
+              <Text className="text-gray-600">Total Expenses:</Text>
+              <Text className="font-semibold text-red-600">${totalExpenses.toFixed(2)}</Text>
+            </View>
+            <View className="border-t border-gray-200 pt-2 mt-2">
+              <View className="flex-row justify-between">
+                <Text className="text-gray-800 font-semibold">Net Income:</Text>
+                <Text className={`font-bold ${netIncome >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  ${netIncome.toFixed(2)}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* Income by Category */}
+        {Object.keys(incomeByCategory).length > 0 && (
+          <View className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+            <Text className="text-lg font-semibold text-gray-800 mb-3">Income by Category</Text>
+            {Object.entries(incomeByCategory).map(([category, amount]) => (
+              <View key={category} className="flex-row justify-between items-center py-2">
+                <Text className="text-gray-600 capitalize">{category}</Text>
+                <Text className="font-semibold text-green-600">${amount.toFixed(2)}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {/* Expenses by Category */}
+        {Object.keys(expensesByCategory).length > 0 && (
+          <View className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+            <Text className="text-lg font-semibold text-gray-800 mb-3">Expenses by Category</Text>
+            {Object.entries(expensesByCategory).map(([category, amount]) => (
+              <View key={category} className="flex-row justify-between items-center py-2">
+                <Text className="text-gray-600 capitalize">{category}</Text>
+                <Text className="font-semibold text-red-600">${amount.toFixed(2)}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {/* Recent Activity */}
+        <View className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+          <Text className="text-lg font-semibold text-gray-800 mb-3">Recent Activity</Text>
+          {entries.length === 0 ? (
+            <Text className="text-gray-500 text-center py-4">No entries yet</Text>
+          ) : (
+            <View className="space-y-2">
+              <View className="flex-row justify-between">
+                <Text className="text-gray-600">Total Entries:</Text>
+                <Text className="font-semibold">{entries.length}</Text>
+              </View>
+              <View className="flex-row justify-between">
+                <Text className="text-gray-600">Income Entries:</Text>
+                <Text className="font-semibold text-green-600">{incomeEntries.length}</Text>
+              </View>
+              <View className="flex-row justify-between">
+                <Text className="text-gray-600">Expense Entries:</Text>
+                <Text className="font-semibold text-red-600">{expenseEntries.length}</Text>
+              </View>
+            </View>
+          )}
+        </View>
+
+        {/* Tax Insights */}
+        <View className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+          <Text className="text-lg font-semibold text-gray-800 mb-3">Tax Insights</Text>
+          <View className="space-y-2">
+            <View className="bg-blue-50 p-3 rounded-lg">
+              <Text className="text-sm text-blue-800 font-medium">💡 Tip</Text>
+              <Text className="text-sm text-blue-700 mt-1">
+                Keep track of all business expenses for potential tax deductions.
+              </Text>
+            </View>
+            {netIncome > 0 && (
+              <View className="bg-yellow-50 p-3 rounded-lg">
+                <Text className="text-sm text-yellow-800 font-medium">⚠️ Reminder</Text>
+                <Text className="text-sm text-yellow-700 mt-1">
+                  Consider setting aside 25-30% of your net income for taxes.
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-});
