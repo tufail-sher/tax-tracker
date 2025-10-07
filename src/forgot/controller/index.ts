@@ -1,0 +1,1 @@
+export { ForgotPasswordController } from './ForgotPasswordController';

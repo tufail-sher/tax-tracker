@@ -26,10 +26,38 @@ export class AppNavigator {
   }
 
   /**
+   * Navigate to login screen
+   */
+  static navigateToLogin() {
+    router.replace('/login' as any);
+  }
+
+  /**
+   * Navigate to forgot password screen
+   */
+  static navigateToForgotPassword() {
+    router.push('/forgot' as any);
+  }
+
+  /**
+   * Navigate to verify code screen
+   */
+  static navigateToVerifyCode() {
+    router.push('/forgot/verify' as any);
+  }
+
+  /**
+   * Navigate to reset password screen
+   */
+  static navigateToResetPassword() {
+    router.push('/forgot/reset' as any);
+  }
+
+  /**
    * Navigate to a specific tab
    */
   static navigateToTab(tab: 'index' | 'expenses' | 'reports') {
-    router.replace(`/(tabs)/${tab}`);
+    router.replace(`/(tabs)/${tab}` as any);
   }
 
   /**
@@ -43,14 +71,14 @@ export class AppNavigator {
    * Navigate to any route
    */
   static navigate(route: string) {
-    router.push(route);
+    router.push(route as any);
   }
 
   /**
    * Replace current route
    */
   static replace(route: string) {
-    router.replace(route);
+    router.replace(route as any);
   }
 }
 
@@ -60,6 +88,10 @@ export class AppNavigator {
 export const AppRoutes = {
   SPLASH: '/splash',
   INTRO: '/intro',
+  LOGIN: '/login',
+  FORGOT_PASSWORD: '/forgot',
+  VERIFY_CODE: '/forgot/verify',
+  RESET_PASSWORD: '/forgot/reset',
   HOME: '/(tabs)',
   HOME_TAB: '/(tabs)/index',
   EXPENSES: '/(tabs)/expenses',

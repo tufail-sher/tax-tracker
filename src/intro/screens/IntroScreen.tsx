@@ -51,63 +51,67 @@ export default function IntroScreen() {
       pagerRef.current?.setPage(nextPage);
       setCurrentPage(nextPage);
     } else {
-      // Navigate to main app on last slide
-      AppNavigator.navigateToHome();
+      // Navigate to login screen on last slide
+      AppNavigator.navigateToLogin();
     }
   };
 
   const handleGetStarted = () => {
-    AppNavigator.navigateToHome();
+    AppNavigator.navigateToLogin();
   };
 
   const renderSlide = (slide: IntroSlide, index: number) => {
     const IconComponent = slide.icon;
     return (
-      <View key={index} style={{ width: width }} className="flex-1 px-8">
+      <View key={index} style={{ width: width }} className="flex-1 px-4">
         {/* Icon Section */}
-        <View className="flex-2 items-center justify-center">
-          <View className="items-center justify-center mb-8">
-            <IconComponent width={80} height={80} />
+        <View className="flex-1 items-start justify-center">
+          <View 
+            className="items-start justify-center mb-8 border-white border rounded-full p-4 bg-white/20"
+           
+          >
+            <IconComponent />
           </View>
-        </View>
-
         {/* Text Content */}
-        <View className="flex-1 items-center px-4">
-          <Text className="text-blue-600 font-inter-bold text-sm tracking-wider mb-4 text-center">
+        <View className="items-start px-4" >
+          <Text className="font-inter-bold font-semibold text-lg tracking-wider mb-4 text-center text-primary">
             {slide.title}
           </Text>
           
-          <Text className="text-gray-800 font-inter-bold text-2xl leading-8 text-center mb-4">
+          <Text className="font-inter-bold text-3xl leading-8 text-start mb-4 text-secondary">
             {slide.subtitle}{' '}
-            <Text className="text-blue-600">
+            <Text className="font-inter-bold text-3xl leading-8 text-start mb-4 text-primary">
               {slide.description}
             </Text>
           </Text>
         </View>
+        </View>
+
+     
 
         {/* Bottom Section with Pagination and Button */}
-        <View className="pb-12 px-4">
-          {/* Pagination Dots */}
-          <View className="flex-row justify-center mb-8">
+        <View className="flex-row items-center justify-between pb-12 px-4">
+          {/* Pagination Dots - Left side */}
+          <View className="flex-row">
             {introSlides.map((_, dotIndex) => (
               <View
                 key={dotIndex}
                 className={`h-2 mx-1 rounded-full ${
                   dotIndex === currentPage 
-                    ? 'bg-blue-600 w-8' 
+                    ? 'bg-primary w-8' 
                     : dotIndex < currentPage
-                    ? 'bg-blue-600 w-2'
+                    ? 'bg-primary w-2'
                     : 'bg-gray-300 w-2'
                 }`}
               />
             ))}
           </View>
 
-          {/* Action Button */}
+          {/* Action Button - Right side */}
           {index === introSlides.length - 1 ? (
             <TouchableOpacity
               onPress={handleGetStarted}
-              className="bg-blue-600 rounded-full py-4 px-8 flex-row items-center justify-center"
+              className="bg-primary rounded-full py-4 px-8 flex-row items-center justify-center"
             >
               <Text className="text-white font-inter-semibold text-base mr-2">
                 {texts.intro.buttons.getStarted}
@@ -117,17 +121,19 @@ export default function IntroScreen() {
           ) : (
             <TouchableOpacity
               onPress={handleNext}
-              className="bg-blue-600 rounded-full w-14 h-14 items-center justify-center self-end"
+              className="bg-primary rounded-full w-14 h-14 items-center justify-center"
             >
               <ArrowIcon width={24} height={24} fill="white" />
             </TouchableOpacity>
           )}
+          
         </View>
       </View>
     );
   };
 
   return (
+    <View className="w-full h-full bg-white">  
     <ImageBackground
       source={require('../../../assets/intro-background.png')}
       className="flex-1"
@@ -150,5 +156,6 @@ export default function IntroScreen() {
         </PagerView>
       </View>
     </ImageBackground>
+    </View>
   );
 }

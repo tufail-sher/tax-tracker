@@ -3,6 +3,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { Provider } from 'react-redux';
+import { store } from '../src/store/store';
 
 import '../global.css';
 
@@ -42,11 +44,15 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="splash" options={{ headerShown: false }} />
-      <Stack.Screen name="intro" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <Provider store={store}>
+      <Stack>
+        <Stack.Screen name="splash" options={{ headerShown: false }} />
+        <Stack.Screen name="intro" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="forgot" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </Provider>
   );
 }
