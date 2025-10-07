@@ -1,0 +1,1 @@
+export { useInterFonts } from './useInterFonts';

@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Inter font family setup */
+.font-inter {
+  font-family: 'Inter-Regular';
+}
+
+.font-inter-thin {
+  font-family: 'Inter-Thin';
+}
+
+.font-inter-light {
+  font-family: 'Inter-Light';
+}
+
+.font-inter-medium {
+  font-family: 'Inter-Medium';
+}
+
+.font-inter-semibold {
+  font-family: 'Inter-SemiBold';
+}
+
+.font-inter-bold {
+  font-family: 'Inter-Bold';
+}
+
+.font-inter-extrabold {
+  font-family: 'Inter-ExtraBold';
+}
+
+.font-inter-black {
+  font-family: 'Inter-Black';
+}
