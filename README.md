@@ -31,3 +31,5 @@ git init
 git remote -v
 git remote add origin ssh
 git status
+git add .
+git commit -m "xyz"
