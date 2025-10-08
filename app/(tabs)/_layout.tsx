@@ -1,41 +1,42 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import CustomTabBar from '../../src/home/components/CustomTabBar';
 
 export default function TabLayout() {
   return (
     <Tabs
+      tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#0a7ea4',
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            // You can add icons here later
-            null
-          ),
         }}
       />
       <Tabs.Screen
-        name="expenses"
+        name="invoices"
         options={{
-          title: 'Expenses',
-          tabBarIcon: ({ color, focused }) => (
-            // You can add icons here later
-            null
-          ),
+          title: 'Invoices',
         }}
       />
       <Tabs.Screen
-        name="reports"
+        name="add"
         options={{
-          title: 'Reports',
-          tabBarIcon: ({ color, focused }) => (
-            // You can add icons here later
-            null
-          ),
+          title: 'Add',
+        }}
+      />
+      <Tabs.Screen
+        name="categories"
+        options={{
+          title: 'Categories',
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
         }}
       />
     </Tabs>

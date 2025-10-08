@@ -45,7 +45,7 @@ export default function TextField({
     <View className="mb-4">
       {/* Label and Forgot Password */}
       <View className="flex-row justify-between items-center mb-2">
-        <Text className="font-inter-medium text-sm text-secondary">{label}</Text>
+        <Text className="font-inter-regular text-sm text-secondary">{label}</Text>
         {showForgot && (
           <TouchableOpacity onPress={onForgotPress}>
             <Text className="font-inter-medium text-sm text-primary">Forgot?</Text>
@@ -55,8 +55,8 @@ export default function TextField({
 
       {/* Input Field */}
       <View
-        className={`flex-row items-center bg-white border rounded-xl px-4 py-3 ${
-          error ? 'border-red-500' : isFocused ? 'border-primary' : 'border-gray-300'
+        className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-3 ${
+          error ? 'border-red-500' : isFocused ? 'border-primary' : 'border-gray-200'
         }`}
       >
         {(icon || focusedIcon || errorIcon) && (

@@ -77,5 +77,100 @@ export const texts = {
     successDescription: "Your password has been reset successfully. You can now login with your new password.",
     
     footer: "© 2025 Tax Tracker. All rights reserved."
+  },
+
+  // Register Screens
+  register: {
+    // Create Account Screen
+    createAccount: {
+      title: "Create your account",
+      subtitle: "Track and analyze your taxes",
+      fullNameLabel: "Full Name",
+      fullNamePlaceholder: "John Doe",
+      emailLabel: "Email",
+      emailPlaceholder: "email@example.com",
+      passwordLabel: "Password",
+      passwordPlaceholder: "Create a strong password",
+      passwordHint: "Password must be at least 8 characters",
+      createAccountButton: "Continue",
+      haveAccount: "Already have an account?",
+      loginButton: "Login Now",
+      footer: "© 2025 Tax Tracker. All rights reserved."
+    },
+
+    // Verify Email Screen
+    verifyEmail: {
+      title: "Verify Your Email",
+      description: "We've sent a verification code to",
+      verificationCodeLabel: "Verification Code",
+      verificationCodePlaceholder: "Enter 6-digit code",
+      didntReceive: "Didn't receive the code?",
+      resend: "Resend",
+      createAccountButton: "Create Account",
+      termsText: "By continuing, you agree to our",
+      termsLink: "Terms & Conditions",
+      and: "and",
+      privacyLink: "Privacy Policy"
+    },
+
+    // Welcome Screen
+    welcome: {
+      title: "Welcome!",
+      subtitle: "Let's get to know you better",
+      fullNameLabel: "Full Name",
+      fullNamePlaceholder: "John Doe",
+      cnicLabel: "CNIC",
+      cnicPlaceholder: "12345-1234567-1",
+      ntnLabel: "NTN",
+      ntnPlaceholder: "1234567-8",
+      nextButton: "Next"
+    },
+
+    // Tax Filing Status Screen
+    taxFilingStatus: {
+      title: "Tax Filing Status",
+      subtitle: "Please select your filing status",
+      options: {
+        salaried: "Salaried Individual",
+        business: "Business Owner",
+        both: "Both",
+        nonFiler: "Non-Filer"
+      },
+      continueButton: "Continue"
+    },
+
+    // Create Profile Screen
+    createProfile: {
+      title: "Create Your Profile",
+      subtitle: "Add a profile picture and complete your account setup.",
+      uploadPicture: "Upload Profile Picture",
+      optionalText: "Optional but recommended",
+      phoneNumberLabel: "Phone Number",
+      phoneNumberPlaceholder: "+92 300 1234567",
+      cityLabel: "City",
+      cityPlaceholder: "Select your city",
+      getStartedButton: "Get Started",
+      selectPictureTitle: "Select Profile Picture",
+      selectPictureSubtitle: "Choose an option",
+      cameraOption: "Camera",
+      galleryOption: "Gallery",
+      cancelOption: "Cancel",
+      selectCityTitle: "Select City"
+    }
+  },
+
+  // Home Screen
+  home: {
+    greeting: "Hello",
+    status: "Awaiting Input",
+    scanTitle: "Take a photo of your invoice to extract tax information",
+    scanButton: "Start Scanning",
+    tabs: {
+      home: "Home",
+      invoices: "Invoices",
+      add: "Add",
+      categories: "Categories",
+      profile: "Profile"
+    }
   }
 };

@@ -54,6 +54,41 @@ export class AppNavigator {
   }
 
   /**
+   * Navigate to register/create account screen
+   */
+  static navigateToRegister() {
+    router.push('/register' as any);
+  }
+
+  /**
+   * Navigate to verify email screen
+   */
+  static navigateToVerifyEmail() {
+    router.push('/register/verify-email' as any);
+  }
+
+  /**
+   * Navigate to welcome screen
+   */
+  static navigateToWelcome() {
+    router.push('/register/welcome' as any);
+  }
+
+  /**
+   * Navigate to tax filing status screen
+   */
+  static navigateToTaxFilingStatus() {
+    router.push('/register/tax-filing-status' as any);
+  }
+
+  /**
+   * Navigate to create profile screen
+   */
+  static navigateToCreateProfile() {
+    router.push('/register/create-profile' as any);
+  }
+
+  /**
    * Navigate to a specific tab
    */
   static navigateToTab(tab: 'index' | 'expenses' | 'reports') {
@@ -92,6 +127,11 @@ export const AppRoutes = {
   FORGOT_PASSWORD: '/forgot',
   VERIFY_CODE: '/forgot/verify',
   RESET_PASSWORD: '/forgot/reset',
+  REGISTER: '/register',
+  VERIFY_EMAIL: '/register/verify-email',
+  WELCOME: '/register/welcome',
+  TAX_FILING_STATUS: '/register/tax-filing-status',
+  CREATE_PROFILE: '/register/create-profile',
   HOME: '/(tabs)',
   HOME_TAB: '/(tabs)/index',
   EXPENSES: '/(tabs)/expenses',

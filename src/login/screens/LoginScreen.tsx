@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView, Platform, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Button, TextField } from '../../components';
 import { useLogin } from '../hooks';
 import { validateLoginForm } from '../utils';
@@ -17,8 +17,8 @@ import ErrorPasswordIcon from '../../../assets/svg/error_password_icon.svg';
 export default function LoginScreen() {
   const { isLoading, error, isAuthenticated, login, clearError } = useLogin();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('test@example.com');
+  const [password, setPassword] = useState('password123');
   const [errors, setErrors] = useState<{
     email: string | null;
     password: string | null;
@@ -67,7 +67,7 @@ export default function LoginScreen() {
 
   const handleCreateAccount = () => {
     // Navigate to create account screen (to be implemented)
-    Alert.alert('Create Account', 'This feature will be implemented soon!');
+    AppNavigator.navigateToRegister();
   };
 
   const handleForgotPassword = () => {
@@ -76,15 +76,18 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
+   <KeyboardAvoidingView
+      style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      className="flex-1 bg-white"
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
     >
-      <ScrollView
-        className="flex-1 h-full"
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-      >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
         <View className="flex-1 px-6 pt-16">
           {/* App Icon and Header */}
           <View className="items-center mb-8">
@@ -172,6 +175,7 @@ export default function LoginScreen() {
           </View>
         </View>
       </ScrollView>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 }

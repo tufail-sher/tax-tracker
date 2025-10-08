@@ -19,6 +19,9 @@ module.exports = {
         warning: '#F59E0B',
         success: '#10B981',
         info: '#3B82F6',
+        'top-gradient': '#C1D5FC',
+        'tab-focused': '#2249E2',
+        'tab-unfocused': '#757575',
       },
       fontFamily: {
         'inter-thin': ['Inter-Thin'],

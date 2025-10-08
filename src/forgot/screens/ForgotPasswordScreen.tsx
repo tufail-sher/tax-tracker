@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, KeyboardAvoidingView, Platform, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Button, TextField } from '../../components';
 import { useForgotPassword } from '../hooks';
 import { validateForgotPasswordForm } from '../utils';
@@ -54,14 +54,17 @@ export default function ForgotPasswordScreen() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      className="flex-1 bg-white"
-    >
-      <ScrollView
-        className="flex-1"
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-      >
+       style={{ flex: 1 }}
+       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+       keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+     >
+       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+         <ScrollView
+           contentContainerStyle={{ flexGrow: 1 }}
+           keyboardShouldPersistTaps="handled"
+           showsVerticalScrollIndicator={false}
+           bounces={false}
+         >
         <View className="flex-1 px-6 pt-16">
           {/* App Icon and Header */}
           <View className="items-center mb-8">
@@ -134,6 +137,7 @@ export default function ForgotPasswordScreen() {
           </View>
         </View>
       </ScrollView>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 }
