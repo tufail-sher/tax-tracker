@@ -106,7 +106,7 @@ export default function ProfileScreen() {
   ];
 
   return (
-    <View className="flex-1 bg-surface">
+    <View className="flex-1 bg-white">
       {/* Header Section with Background Color */}
       <View className="bg-top-gradient px-6 pt-12 pb-6 rounded-b-[40px]">
         <Text className="font-inter-bold text-2xl text-secondary mb-6">
