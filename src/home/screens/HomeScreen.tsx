@@ -5,13 +5,13 @@ import Button from '../../components/Button';
 import QrScanIcon from '../../../assets/svg/qr_scan_icon.svg';
 import CrownIcon from '../../../assets/svg/crown_icon.svg';
 import { LinearGradient } from 'expo-linear-gradient';
+import { AppNavigator } from '../../utils/navigation';
 
 const { height } = Dimensions.get('window');
 
 export default function HomeScreen() {
   const handleStartScanning = () => {
-    // TODO: Navigate to scanner screen
-    console.log('Start scanning');
+    AppNavigator.navigateToScanner();
   };
 
   return (

@@ -20,6 +20,14 @@
           "photosPermission": "The app needs access to your photos to set your profile picture.",
           "cameraPermission": "The app needs access to your camera to take profile pictures."
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan receipts and invoices.",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone for video recording.",
+          "recordAudioAndroid": false
+        }
       ]
     ],
     "orientation": "portrait",
@@ -35,14 +43,23 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.taxtrackerapp"
+      "bundleIdentifier": "com.anonymous.taxtrackerapp",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to your camera to scan receipts and invoices.",
+        "NSMicrophoneUsageDescription": "This app needs access to your microphone for video recording."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.taxtrackerapp"
+      "package": "com.anonymous.taxtrackerapp",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     }
   }
 }

@@ -172,5 +172,32 @@ export const texts = {
       categories: "Categories",
       profile: "Profile"
     }
+  },
+
+  // Camera Scanner Screen
+  scanner: {
+    permissionRequest: "Requesting camera permission...",
+    permissionDenied: "Camera access is required to scan receipts and invoices",
+    goBackButton: "Go Back",
+    instruction: "Position your receipt or invoice within the frame",
+    captureButton: "Tap to capture receipt or invoice",
+    capturing: "Capturing...",
+    successTitle: "Photo Captured!",
+    successMessage: "Receipt photo has been captured successfully.",
+    errorTitle: "Error",
+    errorMessage: "Failed to capture photo. Please try again.",
+    retryButton: "Retry",
+    doneButton: "Done"
+  },
+
+  // Invoice Details Screen
+  invoiceDetails: {
+    title: "Invoice Details",
+    totalAmount: "Total Amount",
+    totalTax: "Total Tax",
+    taxBreakdown: "Tax Breakdown",
+    totalRefundable: "TOTAL REFUNDABLE",
+    processing: "Processing invoice...",
+    extractionError: "Failed to extract invoice details. Please try again."
   }
 };

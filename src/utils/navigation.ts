@@ -89,6 +89,20 @@ export class AppNavigator {
   }
 
   /**
+   * Navigate to scanner screen
+   */
+  static navigateToScanner() {
+    router.push('/scanner' as any);
+  }
+
+  /**
+   * Navigate to invoice details screen
+   */
+  static navigateToInvoiceDetails() {
+    router.replace('/invoice-details' as any);
+  }
+
+  /**
    * Navigate to a specific tab
    */
   static navigateToTab(tab: 'index' | 'expenses' | 'reports') {
@@ -136,6 +150,8 @@ export const AppRoutes = {
   HOME_TAB: '/(tabs)/index',
   EXPENSES: '/(tabs)/expenses',
   REPORTS: '/(tabs)/reports',
+  SCANNER: '/scanner',
+  INVOICE_DETAILS: '/invoice-details',
   NOT_FOUND: '/+not-found',
 } as const;
 

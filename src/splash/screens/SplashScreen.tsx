@@ -8,6 +8,7 @@ const { width } = Dimensions.get('window');
 
 export default function SplashScreen() {
   useEffect(() => {
+    console.log("[Cervello] SplashScreen mounted");
     // Navigate to intro screen after 3 seconds
     const timer = setTimeout(() => {
       AppNavigator.navigateToIntro();
