@@ -3,15 +3,15 @@ import { View, Dimensions, Text } from 'react-native';
 import { AppNavigator } from '../../utils/navigation';
 import { texts } from '../../../constants/Texts';
 import Splash from '../../../assets/svg/splash.svg';
+import { router } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 
 export default function SplashScreen() {
   useEffect(() => {
-    console.log("[Cervello] SplashScreen mounted");
     // Navigate to intro screen after 3 seconds
     const timer = setTimeout(() => {
-      AppNavigator.navigateToIntro();
+      router.replace('/intro');
     }, 3000);
 
     return () => clearTimeout(timer);

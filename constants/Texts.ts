@@ -163,8 +163,13 @@ export const texts = {
   home: {
     greeting: "Hello",
     status: "Awaiting Input",
+    statusWithData: "Your Tax For July",
     scanTitle: "Take a photo of your invoice to extract tax information",
     scanButton: "Start Scanning",
+    totalTaxPaid: "TOTAL TAX PAID (2025)",
+    potentialRefund: "Potential Refund (YTD)",
+    invoicesTitle: "Invoices",
+    viewDetail: "View Detail",
     tabs: {
       home: "Home",
       invoices: "Invoices",
@@ -172,6 +177,33 @@ export const texts = {
       categories: "Categories",
       profile: "Profile"
     }
+  },
+
+  // Invoices Screen
+  invoices: {
+    title: "Invoices Record",
+    emptyTitle: "Take a photo of your invoice to extract tax information",
+    searchPlaceholder: "Search invoices...",
+    filterByDate: "Date",
+    filterByCategory: "Category",
+    filterByRefundable: "Refundable",
+    scanButton: "Start Scanning",
+  },
+
+  // Categories Screen
+  categories: {
+    title: "Categories",
+    emptyTitle: "Take a photo of your invoice to extract tax information",
+    scanButton: "Start Scanning",
+    taxPaidLabel: "Tax Paid",
+    yourCategories: "Your Categories",
+  },
+
+  // Add Screen
+  add: {
+    title: "Add Invoice",
+    scanTitle: "Take a photo of your invoice to extract tax information",
+    scanButton: "Start Scanning",
   },
 
   // Camera Scanner Screen
@@ -199,5 +231,87 @@ export const texts = {
     totalRefundable: "TOTAL REFUNDABLE",
     processing: "Processing invoice...",
     extractionError: "Failed to extract invoice details. Please try again."
+  },
+
+  // Profile Screen
+  profile: {
+    title: "Profile",
+    freePlan: "Free Plan",
+    upgrade: "Upgrade",
+    general: "General",
+    personalInformation: "Personal Information",
+    reports: "Reports",
+    subscription: "Subscription",
+    password: "Password",
+    settings: "Settings",
+    notifications: "Notifications",
+    helpSupport: "Help & Support",
+  },
+
+  // Personal Information Screen
+  personalInformation: {
+    title: "Personal Information",
+    fullName: "Full Name",
+    fullNamePlaceholder: "Enter your full name",
+    email: "Email",
+    emailPlaceholder: "email@example.com",
+    cnicNumber: "CNIC Number",
+    cnicPlaceholder: "12345-1234567-1",
+    ntn: "NTN (Optional)",
+    ntnPlaceholder: "Enter your national tax number",
+    phoneNumber: "Phone Number",
+    phonePlaceholder: "+92 333 7654321",
+    city: "City",
+    cityPlaceholder: "Select your city",
+    saveChanges: "Save Changes",
+    selectCity: "Select City",
+  },
+
+  // Report Screen
+  report: {
+    title: "Report",
+    description: "Please select a date range to download your report.",
+    from: "From",
+    to: "To",
+    datePlaceholder: "dd/mm/yyyy",
+    downloadReport: "Download Report",
+  },
+
+  // Subscription Screen
+  subscription: {
+    title: "Subscription",
+    appName: "Tax Tracker",
+    unlockFeatures: "Unlock the all features to get benefits",
+    pricePerYear: "Rs. 1000 per year",
+    pricePerMonth: "(Rs. 83.33/month).",
+    features: [
+      "Unlimited receipt scanning and expense logging",
+      "Get instant answers to complex tax questions",
+      "Priority support from our tax professionals",
+      "Early access to new tax-saving features",
+    ],
+    trialInfo: "Unlimited free access for 7 days, then",
+    getPremium: "Get Premium Plan",
+    tapToStart: "Taps To Start, Super Easy To Cancel",
+  },
+
+  // Change Password Screen
+  changePassword: {
+    title: "Change Password",
+    description: "Please provide your current and new password to proceed with the change.",
+    currentPassword: "Current Password",
+    currentPasswordPlaceholder: "Enter Current Password",
+    newPassword: "New Password",
+    newPasswordPlaceholder: "Enter New Password",
+    confirmPassword: "Confirm New Password",
+    confirmPasswordPlaceholder: "Confirm New Password",
+    changePasswordButton: "Change Password",
+    validation: {
+      currentPasswordRequired: "Current password is required",
+      newPasswordRequired: "New password is required",
+      passwordTooShort: "Password must be at least 8 characters",
+      passwordNoMatch: "Passwords do not match",
+      confirmPasswordRequired: "Please confirm your new password",
+    },
   }
 };

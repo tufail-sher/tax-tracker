@@ -31,10 +31,10 @@
       ]
     ],
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/app-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -43,7 +43,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.taxtrackerapp",
+      "bundleIdentifier": "com.codeupscale.taxtrackerapp",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to your camera to scan receipts and invoices.",
         "NSMicrophoneUsageDescription": "This app needs access to your microphone for video recording."
@@ -51,14 +51,16 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/app-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.taxtrackerapp",
+      "edgeToEdgeEnabled": true,
+      "package": "com.codeupscale.taxtrackerapp",
       "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.RECORD_AUDIO"
       ]
     }
   }

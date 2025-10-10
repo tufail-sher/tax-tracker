@@ -1,7 +1,7 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/store';
@@ -12,7 +12,7 @@ import '../global.css';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  const [loaded, error] = useFonts({
     'Inter-Black': require('../assets/fonts/Inter-Black.otf'),
     'Inter-BlackItalic': require('../assets/fonts/Inter-BlackItalic.otf'),
     'Inter-Bold': require('../assets/fonts/Inter-Bold.otf'),
@@ -33,19 +33,42 @@ export default function RootLayout() {
     'Inter-ThinItalic': require('../assets/fonts/Inter-ThinItalic-BETA.otf'),
   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  const [forceReady, setForceReady] = useState(false);
 
-  if (!loaded) {
+  useEffect(() => {
+    console.log('[TaxTracker] RootLayout mounted, loaded:', loaded, 'error:', error);
+    
+    // Force hide splash after 2 seconds even if fonts aren't loaded
+    const fallbackTimer = setTimeout(() => {
+      console.log('[TaxTracker] Fallback timer triggered - forcing splash to hide');
+      setForceReady(true);
+      SplashScreen.hideAsync().catch((err) => {
+        console.error('[TaxTracker] Error hiding splash (fallback):', err);
+      });
+    }, 2000);
+
+    if (loaded || error) {
+      console.log('[TaxTracker] Fonts loaded or error occurred, hiding splash screen');
+      clearTimeout(fallbackTimer);
+      SplashScreen.hideAsync().catch((err) => {
+        console.error('[TaxTracker] Error hiding splash:', err);
+      });
+    }
+
+    return () => clearTimeout(fallbackTimer);
+  }, [loaded, error]);
+
+  if (!loaded && !error && !forceReady) {
+    console.log('[TaxTracker] Fonts not loaded yet, waiting...');
     return null;
   }
+
+  console.log('[TaxTracker] RootLayout rendering with fonts loaded');
 
   return (
     <Provider store={store}>
       <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="splash" options={{ headerShown: false }} />
         <Stack.Screen name="intro" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
@@ -53,6 +76,7 @@ export default function RootLayout() {
         <Stack.Screen name="register" options={{ headerShown: false }} />
         <Stack.Screen name="scanner" options={{ headerShown: false }} />
         <Stack.Screen name="invoice-details" options={{ headerShown: false }} />
+        <Stack.Screen name="profile" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>

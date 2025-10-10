@@ -1,13 +1,10 @@
-import { View, Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { CategoriesScreen } from '../../src/categories';
 
 export default function CategoriesTab() {
   return (
     <>
-      <View className="flex-1 bg-white items-center justify-center">
-        <Text className="font-inter-bold text-2xl text-secondary">Categories</Text>
-        <Text className="font-inter-regular text-base text-secondary/70 mt-2">Coming soon...</Text>
-      </View>
+      <CategoriesScreen />
       <StatusBar style="dark" />
     </>
   );

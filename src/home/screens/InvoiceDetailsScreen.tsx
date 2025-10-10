@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { setInvoiceDetails, setLoading, setError } from '../store/invoiceSlice';
 import { texts } from '../../../constants/Texts';
@@ -74,12 +74,13 @@ export default function InvoiceDetailsScreen() {
         </View>
       )}
       {/* Header */}
-      <View className="px-6 pt-12 pb-4 flex-row items-center">
+      <View className="px-6 pt-12 pb-4 flex-row items-center border-b border-gray-100">
         <TouchableOpacity
           onPress={() => router.back()}
-          className="mr-4"
+          className="mr-4 p-2"
+          activeOpacity={0.7}
         >
-          <Ionicons name="arrow-back" size={24} color="#1E1E1E" />
+          <MaterialIcons name="arrow-back" size={24} color="#1E1E1E" />
         </TouchableOpacity>
         <Text className="font-inter-bold text-xl text-secondary">
           {texts.invoiceDetails.title}

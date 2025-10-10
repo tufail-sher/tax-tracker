@@ -99,7 +99,56 @@ export class AppNavigator {
    * Navigate to invoice details screen
    */
   static navigateToInvoiceDetails() {
-    router.replace('/invoice-details' as any);
+    router.push('/invoice-details' as any);
+  }
+
+  /**
+   * Navigate to personal information screen
+   */
+  static navigateToPersonalInformation() {
+    router.push('/profile/personal-information' as any);
+  }
+
+  /**
+   * Navigate to reports screen
+   */
+  static navigateToReports() {
+    router.push('/profile/reports' as any);
+  }
+
+  /**
+   * Navigate to subscription screen (profile module)
+   */
+  static navigateToSubscription() {
+    router.push('/profile/subscription' as any);
+  }
+
+  /**
+   * Navigate to change password screen (profile module)
+   */
+  static navigateToPassword() {
+    router.push('/profile/password' as any);
+  }
+
+  /**
+   * Navigate to change password screen (alias)
+   */
+  static navigateToChangePassword() {
+    router.push('/profile/password' as any);
+  }
+
+  /**
+   * Navigate to notifications screen
+   */
+  static navigateToNotifications() {
+    router.push('/profile/notifications' as any);
+  }
+
+  /**
+   * Navigate to help & support screen
+   */
+  static navigateToHelpSupport() {
+    router.push('/profile/help-support' as any);
   }
 
   /**
@@ -149,9 +198,15 @@ export const AppRoutes = {
   HOME: '/(tabs)',
   HOME_TAB: '/(tabs)/index',
   EXPENSES: '/(tabs)/expenses',
-  REPORTS: '/(tabs)/reports',
+  REPORTS_TAB: '/(tabs)/reports',
   SCANNER: '/scanner',
   INVOICE_DETAILS: '/invoice-details',
+  PERSONAL_INFORMATION: '/profile/personal-information',
+  PROFILE_REPORTS: '/profile/reports',
+  SUBSCRIPTION: '/profile/subscription',
+  PASSWORD: '/profile/password',
+  NOTIFICATIONS: '/profile/notifications',
+  HELP_SUPPORT: '/profile/help-support',
   NOT_FOUND: '/+not-found',
 } as const;
 
