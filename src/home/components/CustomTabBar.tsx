@@ -1,16 +1,20 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, Platform, StyleSheet, Dimensions } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import Svg, { Path } from 'react-native-svg';
 import { texts } from '../../../constants/Texts';
 import HomeIcon from '../../../assets/svg/home_icon.svg';
 import FocusedHomeIcon from '../../../assets/svg/focused_home_icon.svg';
 import InvoiceIcon from '../../../assets/svg/invoice_icon.svg';
 import FocusedInvoiceIcon from '../../../assets/svg/focused_invoice_icon.svg';
 import AddIcon from '../../../assets/svg/add_icon.svg';
+import FocusedAddIcon from '../../../assets/svg/focused_add_icon.svg';
 import CategoriesIcon from '../../../assets/svg/categories_icon.svg';
 import FocusedCategoriesIcon from '../../../assets/svg/focused_categories_icon.svg';
 import ProfileIcon from '../../../assets/svg/profile_icon.svg';
 import FocusedProfileIcon from '../../../assets/svg/focused_profile_icon.svg';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
   const getIcon = (routeName: string, isFocused: boolean) => {
@@ -22,7 +26,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
       case 'invoices':
         return isFocused ? <FocusedInvoiceIcon {...iconProps} /> : <InvoiceIcon {...iconProps} />;
       case 'add':
-        return <AddIcon width={28} height={28} />;
+        return isFocused ? <FocusedAddIcon width={28} height={28} /> : <AddIcon width={28} height={28} />;
       case 'categories':
         return isFocused ? <FocusedCategoriesIcon {...iconProps} /> : <CategoriesIcon {...iconProps} />;
       case 'profile':
@@ -50,16 +54,31 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
   };
 
   return (
-    <View className="bg-white" style={{ 
-      borderTopLeftRadius: 24, 
-      borderTopRightRadius: 24,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: -2 },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 8,
+    <View style={{ 
+      position: 'relative',
+      backgroundColor: 'white',
     }}>
-      <View className="flex-row items-center justify-around px-4 py-3 pb-6">
+      {/* Curved Tab Shape Background */}
+      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+        <Svg 
+          width={SCREEN_WIDTH} 
+          height="93" 
+          viewBox="0 0 390 93" 
+          fill="none"
+          preserveAspectRatio="none"
+          style={{ width: '100%', height: '100%' }}
+        >
+          <Path 
+            d="M374.833 10.6846C383.058 11.1274 389.5 17.9255 389.5 26.1621V77C389.5 85.5604 382.56 92.5 374 92.5H16C7.43959 92.5 0.5 85.5604 0.5 77V26.1621L0.504883 25.7764C0.702083 17.7141 7.07095 11.1205 15.167 10.6846L195 1L374.833 10.6846Z" 
+            fill="white" 
+            stroke="#E4E4E4"
+            strokeWidth="1"
+          />
+        </Svg>
+      </View>
+
+      {/* Tab Bar Content */}
+      <View className="flex-row items-center justify-around px-4" style={{ paddingTop: 16, paddingBottom: 12 }}>
         {state.routes.map((route, index) => {
           const { options } = descriptors[route.key];
           const isFocused = state.index === index;
@@ -82,22 +101,6 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
               target: route.key,
             });
           };
-
-          // Special styling for Add button (middle button)
-          if (route.name === 'add') {
-            return (
-              <TouchableOpacity
-                key={route.key}
-                onPress={onPress}
-                onLongPress={onLongPress}
-                className="items-center justify-center -mt-8"
-              >
-                <View className="w-14 h-14 rounded-2xl bg-primary items-center justify-center">
-                  {getIcon(route.name, false)}
-                </View>
-              </TouchableOpacity>
-            );
-          }
 
           return (
             <TouchableOpacity

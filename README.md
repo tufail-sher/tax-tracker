@@ -33,3 +33,5 @@ git remote add origin ssh
 git status
 git add .
 git commit -m "xyz"
+
+adb install android/app/build/outputs/apk/release/app-release.apk
